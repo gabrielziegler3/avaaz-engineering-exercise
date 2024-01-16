@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Data Entries</title>
+</head>
+<body>
+    <h1>Data Entries</h1>
+
+    <form action="/" method="get">
+        <div>
+            <label for="title">Title:</label>
+            <input type="text" id="title" name="title">
+        </div>
+        <div>
+            <label for="url">URL:</label>
+            <input type="text" id="url" name="url">
+        </div>
+        <div>
+            <label for="date_after">Date After:</label>
+            <input type="date" id="date_after" name="date_after">
+        </div>
+        <div>
+            <label for="date_before">Date Before:</label>
+            <input type="date" id="date_before" name="date_before">
+        </div>
+        <button type="submit">Search</button>
+    </form>
+
+    {% if data_entries %}
+        <table>
+            <tr>
+                <th>Title</th>
+                <th>URL</th>
+                <th>Date Added</th>
+            </tr>
+            {% for title, url, date_added in data_entries %}
+                <tr>
+                    <td>{{ title }}</td>
+                    <td>{{ url }}</td>
+                    <td>{{ date_added }}</td>
+                </tr>
+            {% endfor %}
+        </table>
+    {% endif %}
+</body>
+</html>
