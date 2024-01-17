@@ -17,11 +17,17 @@ class DataModel:
         self.title = title
         self.uri = uri
 
+        # check if uri looks like a url
+        if not uri or (not self.uri.startswith("http")) and (not self.uri.startswith("www")):
+            logger.debug(f"Invalid uri: {self.uri}")
+            raise ValueError(f"Invalid uri: {self.uri}")
+
+        # check if date is valid
         if isinstance(date, datetime):
             self.date = date
         else:
             try:
-                self.date = dt_parser.parse(date, ignoretz=True, fuzzy=True)
+                self.date = dt_parser.parse(date, fuzzy=True, default=None)
             except ValueError as e:
                 logger.debug(f"Failed to parse date: {date}")
                 raise e

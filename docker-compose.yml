@@ -1,4 +1,4 @@
-version: "3.3"
+version: "3.9"
 
 services:
   app:
@@ -8,7 +8,8 @@ services:
     volumes:
       - ./app/:/usr/app/
     depends_on:
-      - database
+      database:
+        condition: service_healthy
     ports:
       - "5000:5000"
   database:
@@ -23,7 +24,7 @@ services:
       - "3306:3306"
     healthcheck:
       test: mysqladmin ping -h localhost -u root --password=$$MYSQL_ROOT_PASSWORD
-      start_period: 5s
-      interval: 1s
-      timeout: 5s
+      start_period: 10s
+      interval: 5s
+      timeout: 15s
       retries: 5
